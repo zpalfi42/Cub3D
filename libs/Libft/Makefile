@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 14:18:26 by zpalfi            #+#    #+#              #
-#    Updated: 2022/10/24 13:53:24 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/10/24 15:48:28 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC		=	src/ft_atoi.c \
 			src/ft_substr.c \
 			src/ft_strlcat.c \
 			src/ft_strncmp.c \
+			src/ft_strrncmp.c \
 			src/ft_isdigit.c \
 			src/ft_isalpha.c \
 			src/ft_isalnum.c \

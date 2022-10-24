@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   ft_strrncmp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/10/24 17:52:04 by zpalfi           ###   ########.fr       */
+/*   Created: 2022/10/24 15:48:05 by zpalfi            #+#    #+#             */
+/*   Updated: 2022/10/24 15:48:07 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
-
-#include <stdio.h>
-#include <math.h>
-#include "mlx.h"
 #include "libft.h"
-#include "get_next_line.h"
-#include <fcntl.h>
 
-typedef struct  s_data
+int	ft_strrncmp(const char *str, const char *str2, size_t n)
 {
-    void    *mlx_ptr;
-    void    *win_ptr;
-
-    int     width;
-    int     height;
-    int     index;
-
-    char    **map;
-
-    char    *no;
-    char    *so;
-    char    *ea;
-    char    *we;
-    char    *f;
-    char    *c;
-}   t_data;
-
-#endif
+	int	i;
+	int	l;
+	i = ft_strlen(str) - 1;
+	l = ft_strlen(str2) - 1;
+	while (n > 0)
+	{
+		if (str[i] == str2[l])
+		{
+			i--;
+			l--;
+			n--;
+		}
+		else
+			break ;
+	}
+	if (n == 0)
+		return (0);
+	else
+		return (1);
+}
