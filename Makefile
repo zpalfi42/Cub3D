@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/14 12:16:53 by zpalfi            #+#    #+#              #
-#    Updated: 2022/10/24 13:51:10 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/10/24 13:55:49 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ clean:
 fclean:	clean
 	@make fclean -C $(LIBS_DIR)/Libft
 	@make fclean -C $(LIBS_DIR)/Get_Next_Line
+	@make clean -C mlx
 	@rm -f $(NAME)
 
 re:	fclean all
