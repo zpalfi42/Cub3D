@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:20 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/10/31 15:50:40 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:03:44 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,15 @@ int	init_data(t_data *data, char *filename)
 	data->we = NULL;
 	data->f = NULL;
 	data->c = NULL;
-	data->ww = 1280;
-	data->wh = 1024;
+	data->ww = 1920;
+	data->wh = 1080;
 	data->player = 0;
 	data->index = 0;
 	data->width = 0;
 	data->height = 0;
 	data->first = 0;
 	data->error = 0;
+	data->dir = 0;
 	data->filename = ft_strdup(filename);
 	data->fd = open(filename, O_RDONLY, 0);
 	if (data->fd < 0)
@@ -38,10 +39,39 @@ int	init_data(t_data *data, char *filename)
 	return (0);
 }
 
+int	key_handler(int key, t_data *data)
+{
+	if (key == 124)
+	{
+		data->dir++;
+		if (data->dir == 360)
+			data->dir = 0;
+	}
+	else if (key == 123)
+	{
+		data->dir--;
+		if (data->dir == -1)
+			data->dir = 359;
+	}
+	printf("%d\n", data->dir);
+	return (0);
+}
+
+void	rendering(t_data *data)
+{
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
+		return ;
+	data->win_ptr = mlx_new_window(data->mlx_ptr,
+			data->ww, data->wh, "Cub3D");
+	if (!data->win_ptr)
+		return ;
+	mlx_key_hook(data->win_ptr, key_handler, data);
+	mlx_loop(data->mlx_ptr);
+}
+
 int	main(int argc, char **argv)
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
 	t_data	*data;
 
 	if (argc != 2 || ft_strrncmp(argv[1], ".cub", 4))
@@ -56,6 +86,7 @@ int	main(int argc, char **argv)
 	if (data->first == 1)
 	{
 		map_checker(data, 0, 0);
+		rendering(data);
 		free_map(data, 0);
 	}
 	else
@@ -63,13 +94,5 @@ int	main(int argc, char **argv)
 		printf("There is no map in %s!\n", argv[1]);
 		return (1);
 	}
-	mlx_ptr = mlx_init();
-	if (!mlx_ptr)
-		return (1);
-	win_ptr = mlx_new_window(mlx_ptr,
-			1200, 1200, "Cub3D");
-	if (!win_ptr)
-		return (1);
-	mlx_loop(mlx_ptr);
 	return (0);
 }
