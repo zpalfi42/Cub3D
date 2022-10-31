@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/10/26 12:21:35 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/10/31 12:06:01 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,15 @@ typedef struct s_data
 	void	*mlx_ptr;
 	void	*win_ptr;
 
+	int		fd;
 	int		width;
 	int		height;
 	int		index;
+	int		wh;
+	int		ww;
+	int		player;
+	int		first;
+	int		error;
 
 	char	**map;
 
@@ -44,10 +50,11 @@ void	malloc_map(t_data *data);
 void	free_map(t_data *data, int i);
 void	save_map(t_data *data, char *line);
 void	save_texture(t_data *data, char *line);
+void	map_checker(t_data *data, int i, int j);
 void	get_height(t_data *data, char *filename, int i, int j);
 
 char	*del_spaces(char *line, int i);
 
-int		file_parser(t_data *data, int fd, int i, int first);
+int		file_parser(t_data *data, int fd, int i, char *filename);
 
 #endif

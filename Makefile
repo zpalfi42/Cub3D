@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/14 12:16:53 by zpalfi            #+#    #+#              #
-#    Updated: 2022/10/26 12:20:17 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/10/26 14:03:15 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC				=	main.c \
 					save.c \
 					parsers.c \
 					del_spaces.c \
+					map_checker.c \
 					height_malloc.c
 
 MLX_DIR		= ./mlx/

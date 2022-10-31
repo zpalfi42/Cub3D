@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:07:15 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/10/26 12:16:24 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/10/31 11:40:22 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	get_height(t_data *data, char *filename, int i, int j)
 	int		fd;
 	char	*line;
 
+	data->height = 0;
+	data->width = 0;
 	fd = open(filename, O_RDONLY, 0);
-	if (!fd)
+	if (fd < 0)
 	{
 		printf("File couldn't be opened!\n");
 		return ;
