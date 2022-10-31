@@ -3,6 +3,7 @@
         "memory": "c",
         "utility": "c",
         "cub3d.h": "c",
-        "get_next_line.h": "c"
+        "get_next_line.h": "c",
+        "stdlib.h": "c"
     }
 }

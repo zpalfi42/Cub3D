@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/10/31 12:06:01 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/10/31 14:20:43 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_data
 	void	*win_ptr;
 
 	int		fd;
+	int		fd2;
 	int		width;
 	int		height;
 	int		index;
@@ -55,6 +56,6 @@ void	get_height(t_data *data, char *filename, int i, int j);
 
 char	*del_spaces(char *line, int i);
 
-int		file_parser(t_data *data, int fd, int i, char *filename);
+int		file_parser(t_data *data, int i, char *filename);
 
 #endif
