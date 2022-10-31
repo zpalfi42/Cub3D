@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:20 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/10/31 16:03:44 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/10/31 17:07:28 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	key_handler(int key, t_data *data)
 {
 	if (key == 124)
 	{
-		data->dir++;
-		if (data->dir == 360)
+		data->dir += 8;
+		if (data->dir >= 360 || data->dir < 0)
 			data->dir = 0;
 	}
 	else if (key == 123)
 	{
-		data->dir--;
-		if (data->dir == -1)
+		data->dir -= 8;
+		if (data->dir >= 360 || data->dir <= -1)
 			data->dir = 359;
 	}
 	printf("%d\n", data->dir);
@@ -66,7 +66,22 @@ void	rendering(t_data *data)
 			data->ww, data->wh, "Cub3D");
 	if (!data->win_ptr)
 		return ;
-	mlx_key_hook(data->win_ptr, key_handler, data);
+	int x = 0;
+	int y = 0;
+	while (x < 1080)
+	{
+		y = 0;
+		while (y < 1920)
+		{
+			if (x < 1080 / 2)
+				mlx_pixel_put(data->mlx_ptr, data->win_ptr, y, x, (225 << 16 | 30 << 8 | 0));
+			else
+				mlx_pixel_put(data->mlx_ptr, data->win_ptr, y, x, (220 << 16 | 100 << 8 | 0));
+			y++;
+		}
+		x++;
+	}
+	mlx_hook(data->win_ptr, 2, 0, key_handler, &data);
 	mlx_loop(data->mlx_ptr);
 }
 
