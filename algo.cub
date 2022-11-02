@@ -3,8 +3,8 @@ NO ./ruta_a_la_textura_norte
 WE ./ruta_a_la_textura_oeste
         EA ./ruta_a_la_textura_este
 
-F 0,255,0
-C 0,0,,,
+F 27,25,42
+C 123,212,255
 
         1111111111111111111111111
         1000000000110000000000001
