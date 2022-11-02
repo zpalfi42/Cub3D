@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:20 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/10/31 17:07:28 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/02 14:20:26 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,35 @@ int	key_handler(int key, t_data *data)
 	return (0);
 }
 
-void	rendering(t_data *data)
+int	get_color(char *c, int color, int i, int j)
+{
+	char	*cr;
+
+	cr = malloc(sizeof(char) * 4);
+	while (color != 0 && c[++i] != '\0')
+	{
+		if (c[i] == ',')
+		{
+			if (color == 0)
+				break ;
+			else
+				color--;
+		}
+	}
+	while (c[++i] != '\0')
+	{
+		if (c[i] == ',')
+			break ;
+		cr[j] = c[i];
+		j++;
+	}
+	cr[j] = '\0';
+	i = ft_atoi(cr);
+	free(cr);
+	return (i);
+}
+
+void	rendering(t_data *data, int x, int y)
 {
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
@@ -66,23 +94,54 @@ void	rendering(t_data *data)
 			data->ww, data->wh, "Cub3D");
 	if (!data->win_ptr)
 		return ;
-	int x = 0;
-	int y = 0;
-	while (x < 1080)
+	while (++x < 1080)
 	{
-		y = 0;
-		while (y < 1920)
+		y = -1;
+		while (++y < 1920)
 		{
 			if (x < 1080 / 2)
-				mlx_pixel_put(data->mlx_ptr, data->win_ptr, y, x, (225 << 16 | 30 << 8 | 0));
+				mlx_pixel_put(data->mlx_ptr, data->win_ptr, y, x,
+					(get_color(data->c, 0, -1, 0) << 16
+						| get_color(data->c, 1, -1, 0) << 8
+						| get_color(data->c, 2, -1, 0)));
 			else
-				mlx_pixel_put(data->mlx_ptr, data->win_ptr, y, x, (220 << 16 | 100 << 8 | 0));
-			y++;
+				mlx_pixel_put(data->mlx_ptr, data->win_ptr, y, x,
+					(get_color(data->f, 0, -1, 0) << 16
+						| get_color(data->f, 1, -1, 0) << 8
+						| get_color(data->f, 2, -1, 0)));
 		}
-		x++;
 	}
 	mlx_hook(data->win_ptr, 2, 0, key_handler, &data);
 	mlx_loop(data->mlx_ptr);
+}
+
+int	textures_checker(char *c, int i, int j, int k)
+{
+	if (ft_strlen(c) > 12)
+	{
+		printf("Invalid color!\n");
+		return (1);
+	}
+	while (c[++i] != '\0' && c[i] != '\n')
+	{
+		if (c[i] == ',')
+		{
+			if (k > 2)
+			{
+				printf("Invalid color %d %d!\n", j, k);
+				return (1);
+			}
+			j = 0;
+			k++;
+		}
+		else if (ft_isdigit(c[i]) == 0 || j > 3 || k > 2)
+		{
+			printf("Invalid color %d %d!\n", j, k);
+			return (1);
+		}
+		j++;
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -100,14 +159,18 @@ int	main(int argc, char **argv)
 	data->first = file_parser(data, 0, argv[1]);
 	if (data->first == 1)
 	{
-		map_checker(data, 0, 0);
-		rendering(data);
-		free_map(data, 0);
+		if (textures_checker(data->c, -1, 0, 0) == 0
+			&& textures_checker(data->f, -1, 0, 0) == 0)
+		{
+			map_checker(data, 0, 0);
+			rendering(data, -1, 0);
+		}
 	}
 	else
 	{
 		printf("There is no map in %s!\n", argv[1]);
 		return (1);
 	}
+	free_map(data, 0);
 	return (0);
 }
