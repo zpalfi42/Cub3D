@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:03:19 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/02 18:16:57 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/03 13:32:53 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,31 @@ static int	valid_point(t_data *data, int i, int j)
 
 static void	player_point(t_data *data, int i, int j)
 {
-	if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
-		|| data->map[i][j] == 'E' || data->map[i][j] == 'W')
+	if (data->map[i][j] == 'N')
 	{
-		if (data->map[i][j] == 'N')
-			data->diry = 1;
-		else if (data->map[i][j] == 'S')
-			data->diry = -1;
-		else if (data->map[i][j] == 'E')
-			data->dirx = 1;
-		else if (data->map[i][j] == 'W')
-			data->dirx = -1;
-		data->posx = j;
-		data->posy = i;
-		data->player++;
+		data->dirx = 1;
+		data->planey = -0.66;
 	}
+	else if (data->map[i][j] == 'S')
+	{
+		data->dirx = -1;
+		data->planey = 0.66;
+	}
+	else if (data->map[i][j] == 'E')
+	{
+		data->diry = -1;
+		data->planex = -0.66;
+	}
+	else if (data->map[i][j] == 'W')
+	{
+		data->diry = 1;
+		data->planex = 0.66;
+	}
+	else
+		return ;
+	data->posx = i + 0.05;
+	data->posy = j + 0.05;
+	data->player++;
 }
 
 static void	x_point(t_data *data, int i, int j)

@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:46:47 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/02 18:20:57 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/03 13:32:51 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	init_data(t_data *data, char *filename)
 	data->dirx = 0;
 	data->diry = 0;
 	data->planex = 0;
-	data->planey = 0.66;
+	data->planey = 0;
 	data->filename = ft_strdup(filename);
 	data->fd = open(filename, O_RDONLY, 0);
 	if (data->fd < 0)

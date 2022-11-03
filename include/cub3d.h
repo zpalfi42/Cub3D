@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/02 17:14:58 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/03 13:28:13 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	get_height(t_data *data, char *filename, int i, int j);
 
 char	*del_spaces(char *line, int i);
 
+int		key_handler(int key, t_data *data);
 int		init_data(t_data *data, char *filename);
 int		get_color(char *c, int color, int i, int j);
 int		color_checker(char *c, int i, int j, int k);

@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/14 12:16:53 by zpalfi            #+#    #+#              #
-#    Updated: 2022/11/02 16:48:18 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/11/03 13:27:45 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC				=	main.c \
 					init.c \
 					color.c \
 					parsers.c \
+					handlers.c \
 					rendering.c \
 					del_spaces.c \
 					map_checker.c \
