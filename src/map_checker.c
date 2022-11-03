@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:03:19 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/03 13:32:53 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/03 16:45:51 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,28 @@ static void	player_point(t_data *data, int i, int j)
 {
 	if (data->map[i][j] == 'N')
 	{
-		data->dirx = 1;
-		data->planey = -0.66;
-	}
-	else if (data->map[i][j] == 'S')
-	{
 		data->dirx = -1;
 		data->planey = 0.66;
 	}
-	else if (data->map[i][j] == 'E')
+	else if (data->map[i][j] == 'S')
 	{
-		data->diry = -1;
-		data->planex = -0.66;
+		data->dirx = 1;
+		data->planey = -0.66;
 	}
-	else if (data->map[i][j] == 'W')
+	else if (data->map[i][j] == 'E')
 	{
 		data->diry = 1;
 		data->planex = 0.66;
 	}
+	else if (data->map[i][j] == 'W')
+	{
+		data->diry = -1;
+		data->planex = -0.66;
+	}
 	else
 		return ;
-	data->posx = i + 0.05;
-	data->posy = j + 0.05;
+	data->posx = i + 0.5;
+	data->posy = j + 0.5;
 	data->player++;
 }
 
