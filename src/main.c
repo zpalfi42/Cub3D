@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:20 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/03 17:18:28 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/07 15:03:11 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	start(t_data *data)
 			return ;
 		mlx_hook(data->win_ptr, 2, 0, key_handler, data);
 		mlx_hook(data->win_ptr, 3, 0, key_release, data);
+		mlx_hook(data->win_ptr, 17, 0, key_exit, data);
 		mlx_loop_hook(data->mlx_ptr, rendering, data);
 		mlx_loop(data->mlx_ptr);
 	}

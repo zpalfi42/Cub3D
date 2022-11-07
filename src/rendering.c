@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:48:08 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/03 17:17:22 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/07 15:33:42 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,34 @@ void	move(t_data *data)
 		oldplanex = data->planex;
 		data->planex = data->planex * cos(0.04) - data->planey * sin(0.04);
 		data->planey = oldplanex * sin(0.04) + data->planey * cos(0.04);
+	}
+	if (data->mf == 1)
+	{
+		if (data->map[(int)(data->posx + data->dirx * 0.06)][(int)(data->posy)] != 'X' && data->map[(int)(data->posx + data->dirx * 0.06)][(int)(data->posy)] != '1')
+			data->posx += data->dirx * 0.06;
+		if (data->map[(int)(data->posx)][(int)(data->posy + data->diry * 0.06)] != 'X' && data->map[(int)(data->posx)][(int)(data->posy + data->diry * 0.06)] != '1')
+			data->posy += data->diry * 0.06;
+	}
+	if (data->mb == 1)
+	{
+		if (data->map[(int)(data->posx - data->dirx * 0.06)][(int)(data->posy)] != 'X' && data->map[(int)(data->posx - data->dirx * 0.06)][(int)(data->posy)] != '1')
+			data->posx -= data->dirx * 0.06;
+		if (data->map[(int)(data->posx)][(int)(data->posy - data->diry * 0.06)] != 'X' && data->map[(int)(data->posx)][(int)(data->posy - data->diry * 0.06)] != '1')
+			data->posy -= data->diry * 0.06;
+	}
+	if (data->ml == 1)
+	{
+		if (data->map[(int)(data->posx + (data->dirx * cos(1.5708) - data->diry * sin(1.5708)) * 0.04)][(int)(data->posy)] != 'X' && data->map[(int)(data->posx + (data->dirx * cos(1.5708) - data->diry * sin(1.5708)) * 0.04)][(int)(data->posy)] != '1')
+			data->posx += (data->dirx * cos(1.5708) - data->diry * sin(1.5708)) * 0.04;
+		if (data->map[(int)(data->posx)][(int)(data->posy + (data->dirx * sin(1.5708) + data->diry * cos(1.5708)) * 0.04)] != 'X' && data->map[(int)(data->posx)][(int)(data->posy + (data->dirx * sin(1.5708) + data->diry * cos(1.5708)) * 0.04)] != '1')
+			data->posy += (data->dirx * sin(1.5708) + data->diry * cos(1.5708)) * 0.04;
+	}
+	if (data->mr == 1)
+	{
+		if (data->map[(int)(data->posx + (data->dirx * cos(4.71239) - data->diry * sin(4.71239)) * 0.04)][(int)(data->posy)] != 'X' && data->map[(int)(data->posx + (data->dirx * cos(4.71239) - data->diry * sin(4.71239)) * 0.04)][(int)(data->posy)] != '1')
+			data->posx += (data->dirx * cos(4.71239) - data->diry * sin(4.71239)) * 0.04;
+		if (data->map[(int)(data->posx)][(int)(data->posy + (data->dirx * sin(4.71239) + data->diry * cos(4.71239)) * 0.04)] != 'X' && data->map[(int)(data->posx)][(int)(data->posy + (data->dirx * sin(4.71239) + data->diry * cos(4.71239)) * 0.04)] != '1')
+			data->posy += (data->dirx * sin(4.71239) + data->diry * cos(4.71239)) * 0.04;
 	}
 }
 

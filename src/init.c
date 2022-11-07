@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:46:47 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/03 17:19:45 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/03 18:08:41 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	init_data_2(t_data *data)
 	data->planey = 0;
 	data->vr = 0;
 	data->vl = 0;
+	data->mf = 0;
+	data->mb = 0;
+	data->ml = 0;
+	data->mr = 0;
 }
 
 int	init_data(t_data *data, char *filename)

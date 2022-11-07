@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/03 17:10:48 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/07 15:03:09 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ typedef struct s_data
 
 	int		vr;
 	int		vl;
+	int		mf;
+	int		mb;
+	int		ml;
+	int		mr;
 
 	char	**map;
 
@@ -97,6 +101,7 @@ void	get_height(t_data *data, char *filename, int i, int j);
 
 char	*del_spaces(char *line, int i);
 
+int		key_exit(void);
 int		key_handler(int key, t_data *data);
 int		init_data(t_data *data, char *filename);
 int		get_color(char *c, int color, int i, int j);
