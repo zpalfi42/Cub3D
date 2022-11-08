@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:20:09 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/03 13:32:53 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/08 17:03:31 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	map_parser(t_data *data, char *line, int i, char *filename)
 		data->fd = open(filename, O_RDONLY, 0);
 		while (i >= 0)
 		{
-			get_next_line(data->fd);
+			free(line);
+			line = get_next_line(data->fd);
 			i--;
 		}
 	}
@@ -50,8 +51,9 @@ int	map_parser(t_data *data, char *line, int i, char *filename)
 int	file_parser(t_data *data, int i, char *filename)
 {
 	char	*line;
+	char	*aux;
 
-	while (42)
+	while (42 && ++i)
 	{
 		line = get_next_line(data->fd);
 		if (!line)
@@ -60,15 +62,16 @@ int	file_parser(t_data *data, int i, char *filename)
 				save_map(data, "\0");
 			break ;
 		}
-		if (del_spaces(line, 0) != NULL)
+		aux = del_spaces(line, 0);
+		if (aux != NULL)
 		{
 			if (all_textures(data))
 				save_texture(data, del_spaces(line, 0));
 			else
 				data->first = map_parser(data, line, i, filename);
-			free(line);
 		}
-		i++;
+		free(line);
+		free(aux);
 	}
 	close(data->fd);
 	return (data->first);

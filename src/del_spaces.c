@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:08:50 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/03 13:32:47 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/08 15:04:08 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*del_spaces(char *line, int i)
 		return (NULL);
 	newline = malloc(sizeof(char) * (j - i + 1));
 	j = 0;
-	while (line[i] != '\0')
+	while (line[i] != '\0' && line[i] != '\n')
 	{
 		newline[j] = line[i];
 		i++;

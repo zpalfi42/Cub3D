@@ -1,14 +1,14 @@
-NO ./ruta_a_la_textura_norte
-                SO ./ruta_a_la_textura_sur
-WE ./ruta_a_la_textura_oeste
-        EA ./ruta_a_la_textura_este
+NO ./textures/eloi-1.xpm
+SO ./textures/zpalfi.xpm
+WE ./textures/mono-1.xpm
+EA ./textures/aaron.xpm
 
 F 100,100,100
 C 0,0,255
 
                          111 
         1111111111111111110111111
-        1000000000110000000000001
+        1000000000110000100000001
         1111000001110001000000001
         10010000000000000W0000001
 111111111011000001110000000000001

@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:48:08 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/07 15:33:42 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/08 17:04:19 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	init_values(t_data *data, int x);
 static void	find_hit_point(t_data *data);
-static void	print_walls(t_data *data, int x);
+static void	print_walls(t_data *data, int x, int y);
+static void	tex_calc(t_data *data);
 
 /*
 	The rendering function contains the while loop that implements the
@@ -25,59 +26,6 @@ static void	print_walls(t_data *data, int x);
 			- print_walls()
 */
 
-void	move(t_data *data)
-{
-	double	olddirx;
-	double	oldplanex;
-
-	if (data->vr == 1)
-	{
-		olddirx = data->dirx;
-		data->dirx = data->dirx * cos(-0.04) - data->diry * sin(-0.04);
-		data->diry = olddirx * sin(-0.04) + data->diry * cos(-0.04);
-		oldplanex = data->planex;
-		data->planex = data->planex * cos(-0.04) - data->planey * sin(-0.04);
-		data->planey = oldplanex * sin(-0.04) + data->planey * cos(-0.04);
-	}
-	if (data->vl == 1)
-	{
-		olddirx = data->dirx;
-		data->dirx = data->dirx * cos(0.04) - data->diry * sin(0.04);
-		data->diry = olddirx * sin(0.04) + data->diry * cos(0.04);
-		oldplanex = data->planex;
-		data->planex = data->planex * cos(0.04) - data->planey * sin(0.04);
-		data->planey = oldplanex * sin(0.04) + data->planey * cos(0.04);
-	}
-	if (data->mf == 1)
-	{
-		if (data->map[(int)(data->posx + data->dirx * 0.06)][(int)(data->posy)] != 'X' && data->map[(int)(data->posx + data->dirx * 0.06)][(int)(data->posy)] != '1')
-			data->posx += data->dirx * 0.06;
-		if (data->map[(int)(data->posx)][(int)(data->posy + data->diry * 0.06)] != 'X' && data->map[(int)(data->posx)][(int)(data->posy + data->diry * 0.06)] != '1')
-			data->posy += data->diry * 0.06;
-	}
-	if (data->mb == 1)
-	{
-		if (data->map[(int)(data->posx - data->dirx * 0.06)][(int)(data->posy)] != 'X' && data->map[(int)(data->posx - data->dirx * 0.06)][(int)(data->posy)] != '1')
-			data->posx -= data->dirx * 0.06;
-		if (data->map[(int)(data->posx)][(int)(data->posy - data->diry * 0.06)] != 'X' && data->map[(int)(data->posx)][(int)(data->posy - data->diry * 0.06)] != '1')
-			data->posy -= data->diry * 0.06;
-	}
-	if (data->ml == 1)
-	{
-		if (data->map[(int)(data->posx + (data->dirx * cos(1.5708) - data->diry * sin(1.5708)) * 0.04)][(int)(data->posy)] != 'X' && data->map[(int)(data->posx + (data->dirx * cos(1.5708) - data->diry * sin(1.5708)) * 0.04)][(int)(data->posy)] != '1')
-			data->posx += (data->dirx * cos(1.5708) - data->diry * sin(1.5708)) * 0.04;
-		if (data->map[(int)(data->posx)][(int)(data->posy + (data->dirx * sin(1.5708) + data->diry * cos(1.5708)) * 0.04)] != 'X' && data->map[(int)(data->posx)][(int)(data->posy + (data->dirx * sin(1.5708) + data->diry * cos(1.5708)) * 0.04)] != '1')
-			data->posy += (data->dirx * sin(1.5708) + data->diry * cos(1.5708)) * 0.04;
-	}
-	if (data->mr == 1)
-	{
-		if (data->map[(int)(data->posx + (data->dirx * cos(4.71239) - data->diry * sin(4.71239)) * 0.04)][(int)(data->posy)] != 'X' && data->map[(int)(data->posx + (data->dirx * cos(4.71239) - data->diry * sin(4.71239)) * 0.04)][(int)(data->posy)] != '1')
-			data->posx += (data->dirx * cos(4.71239) - data->diry * sin(4.71239)) * 0.04;
-		if (data->map[(int)(data->posx)][(int)(data->posy + (data->dirx * sin(4.71239) + data->diry * cos(4.71239)) * 0.04)] != 'X' && data->map[(int)(data->posx)][(int)(data->posy + (data->dirx * sin(4.71239) + data->diry * cos(4.71239)) * 0.04)] != '1')
-			data->posy += (data->dirx * sin(4.71239) + data->diry * cos(4.71239)) * 0.04;
-	}
-}
-
 int	rendering(t_data *data)
 {
 	int	x;
@@ -87,7 +35,8 @@ int	rendering(t_data *data)
 	{
 		init_values(data, x);
 		find_hit_point(data);
-		print_walls(data, x);
+		tex_calc(data);
+		print_walls(data, x, 0);
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img, 0, 0);
 	move(data);
@@ -172,16 +121,42 @@ static void	find_hit_point(t_data *data)
 			/ data->raydiry;
 }
 
+int	get_texture_i(t_data *data)
+{
+	if (data->side == 0 && data->stepx == -1)
+		return (0);
+	if (data->side == 0 && data->stepx == 1)
+		return (1);
+	if (data->side == 1 && data->stepy == 1)
+		return (2);
+	if (data->side == 1 && data->stepy == -1)
+		return (3);
+	return (0);
+}
+
+static void	tex_calc(t_data *data)
+{
+	data->ti = get_texture_i(data);
+	if (data->side == 0)
+		data->wallx = data->posy + data->perpwalldist * data->raydiry;
+	else
+		data->wallx = data->posx + data->perpwalldist * data->raydirx;
+	data->wallx -= floor(data->wallx);
+	data->texx = (int)(data->wallx * data->textures[data->ti].width);
+	if (data->side == 0 && data->raydirx > 0)
+		data->texx = data->textures[data->ti].width - data->texx - 1;
+	if (data->side == 1 && data->raydiry < 0)
+		data->texx = data->textures[data->ti].width - data->texx - 1;
+}
+
 /*
 	Now that we have perpwalldist, we can calculate when in the vertical line
 		of pixels we have tostart printing the wall. And once done that, whe
 		first print the ceiling then the wall and last the floor.
 */
 
-static void	print_walls(t_data *data, int x)
+static void	print_walls(t_data *data, int x, int y)
 {
-	int	y;
-
 	data->line = (int)(HEIGHT / data->perpwalldist);
 	data->drawstart = (-data->line / 2) + (HEIGHT / 2);
 	if (data->drawstart < 0)
@@ -192,13 +167,16 @@ static void	print_walls(t_data *data, int x)
 	y = -1;
 	while (++y < data->drawstart)
 		my_mlx_pixel_put(data, x, y, data->colorc);
+	data->step = 1.0 * data->textures[data->ti].height / data->line;
+	data->texpos = (data->drawstart - HEIGHT / 2 + data->line / 2) * data->step;
 	y = data->drawstart - 1;
 	while (++y < data->drawend)
 	{
-		if (data->side == 0)
-			my_mlx_pixel_put(data, x, y, data->colorw1);
-		else
-			my_mlx_pixel_put(data, x, y, data->colorw2);
+		data->texy = (int)data->texpos;
+		data->texpos += data->step;
+		data->color = data->textures[data->ti].addr[data->texy
+			* data->textures[data->ti].width + data->texx];
+		my_mlx_pixel_put(data, x, y, data->color);
 	}
 	y--;
 	while (++y < HEIGHT)

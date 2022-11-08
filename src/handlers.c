@@ -6,14 +6,15 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:27:34 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/07 15:03:10 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/08 16:32:25 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	key_exit(void)
+int	key_exit(t_data *data)
 {
+	free_map(data, 0);
 	exit(0);
 }
 
@@ -32,7 +33,7 @@ int	key_handler(int key, t_data *data)
 	else if (key == 2)
 		data->mr = 1;
 	else if (key == 53)
-		key_exit();
+		key_exit(data);
 	return (0);
 }
 
