@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:46:47 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/08 16:54:34 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/09 13:28:07 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	init_data(t_data *data, char *filename)
 	data->height = 0;
 	data->first = 0;
 	data->error = 0;
+	data->speed = 0.06;
 	data->fd = open(filename, O_RDONLY, 0);
 	if (data->fd < 0)
 	{

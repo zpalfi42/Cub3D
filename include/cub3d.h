@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/08 16:54:46 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/09 15:41:26 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_data
 	double		wallx;
 	double		step;
 	double		texpos;
+	double		speed;
 
 	int			mapx;
 	int			mapy;
@@ -110,6 +111,7 @@ typedef struct s_data
 }	t_data;
 
 void	move(t_data *data);
+void	tex_calc(t_data *data);
 void	malloc_map(t_data *data);
 void	free_map(t_data *data, int i);
 void	save_map(t_data *data, char *line);

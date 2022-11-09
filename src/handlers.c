@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:27:34 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/08 16:32:25 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/09 13:33:23 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	key_handler(int key, t_data *data)
 		data->mr = 1;
 	else if (key == 53)
 		key_exit(data);
+	else if (key == 257)
+		data->speed = 0.12;
 	return (0);
 }
 
@@ -51,5 +53,7 @@ int	key_release(int key, t_data *data)
 		data->mb = 0;
 	else if (key == 2)
 		data->mr = 0;
+	else if (key == 257)
+		data->speed = 0.06;
 	return (0);
 }

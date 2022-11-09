@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:58:48 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/08 14:00:07 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/09 13:38:09 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	move(t_data *data)
 	if (data->vl == 1)
 		move_vision(data, 0.04);
 	if (data->mf == 1)
-		move_fb(data, data->dirx * 0.06, data->diry * 0.06);
+		move_fb(data, data->dirx * data->speed, data->diry * data->speed);
 	if (data->mb == 1)
-		move_fb(data, -data->dirx * 0.06, -data->diry * 0.06);
+		move_fb(data, -data->dirx * data->speed, -data->diry * data->speed);
 	if (data->ml == 1)
 		move_sides(data, 1.5708);
 	if (data->mr == 1)

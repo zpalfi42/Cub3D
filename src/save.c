@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:38:58 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/08 16:46:27 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/09 11:50:13 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,4 @@ void	save_texture(t_data *data, char *line)
 		data->f = del_spaces(line, 1);
 	else if (!ft_strncmp(line, "C ", 2))
 		data->c = del_spaces(line, 1);
-	free(line);
 }

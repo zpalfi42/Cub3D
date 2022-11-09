@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:48:08 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/08 17:04:19 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/09 15:26:23 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	init_values(t_data *data, int x);
 static void	find_hit_point(t_data *data);
 static void	print_walls(t_data *data, int x, int y);
-static void	tex_calc(t_data *data);
 
 /*
 	The rendering function contains the while loop that implements the
@@ -121,34 +120,6 @@ static void	find_hit_point(t_data *data)
 			/ data->raydiry;
 }
 
-int	get_texture_i(t_data *data)
-{
-	if (data->side == 0 && data->stepx == -1)
-		return (0);
-	if (data->side == 0 && data->stepx == 1)
-		return (1);
-	if (data->side == 1 && data->stepy == 1)
-		return (2);
-	if (data->side == 1 && data->stepy == -1)
-		return (3);
-	return (0);
-}
-
-static void	tex_calc(t_data *data)
-{
-	data->ti = get_texture_i(data);
-	if (data->side == 0)
-		data->wallx = data->posy + data->perpwalldist * data->raydiry;
-	else
-		data->wallx = data->posx + data->perpwalldist * data->raydirx;
-	data->wallx -= floor(data->wallx);
-	data->texx = (int)(data->wallx * data->textures[data->ti].width);
-	if (data->side == 0 && data->raydirx > 0)
-		data->texx = data->textures[data->ti].width - data->texx - 1;
-	if (data->side == 1 && data->raydiry < 0)
-		data->texx = data->textures[data->ti].width - data->texx - 1;
-}
-
 /*
 	Now that we have perpwalldist, we can calculate when in the vertical line
 		of pixels we have tostart printing the wall. And once done that, whe
@@ -163,7 +134,7 @@ static void	print_walls(t_data *data, int x, int y)
 		data->drawstart = 0;
 	data->drawend = (data->line / 2) + (HEIGHT / 2);
 	if (data->drawend > HEIGHT)
-		data->drawend = 1080;
+		data->drawend = HEIGHT;
 	y = -1;
 	while (++y < data->drawstart)
 		my_mlx_pixel_put(data, x, y, data->colorc);
