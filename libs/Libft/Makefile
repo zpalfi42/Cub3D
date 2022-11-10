@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 14:18:26 by zpalfi            #+#    #+#              #
-#    Updated: 2022/10/24 15:48:28 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/11/10 14:32:11 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,9 +52,12 @@ SRC		=	src/ft_atoi.c \
 			src/ft_lstadd_back.c \
 			src/ft_lstlast.c \
 			
-OBJ		= $(SRC:%.c=%.o)
+OBJ		= $(SRC:.c=.o)
 CFLAGS	= -Wall -Wextra -Werror -I include
 CC		= gcc
+
+%.o: %.c ./include/libft.h
+	@$(CC) -c $(CFLAGS) -o $@ $<
 
 $(NAME): $(OBJ) include/libft.h
 	@ar rc $(NAME) $(OBJ)

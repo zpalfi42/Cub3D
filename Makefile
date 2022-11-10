@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/14 12:16:53 by zpalfi            #+#    #+#              #
-#    Updated: 2022/11/09 12:16:15 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/11/10 14:39:50 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC				=	main.c \
 					move.c \
 					color.c \
 					parsers.c \
+					checkers.c \
 					textures.c \
 					handlers.c \
 					rendering.c \
@@ -59,14 +60,14 @@ CFLAGS		= -Wall -Wextra -Werror -g $(INC) -Imlx
 
 #--------------- RULES ---------------#
 
-objs/%.o: src/%.c ./include/cub3d.h
+objs/%.o: src/%.c ./include/cub3d.h ./libs/Libft/include/libft.h ./libs/Get_Next_Line/include/get_next_line.h
 	@mkdir -p $(dir $@)
 	@$(CC) -c $(CFLAGS) -o $@ $<
 	@echo "Compiling $^"
 
-all:	$(NAME)
+all:	$(NAME) $(LIBS_DIR)/Libft/libft.a $(LIBS_DIR)/Get_Next_Line/get_next_line.a
 
-$(NAME): $(OBJ) $(LIBS) ./include/cub3d.h
+$(NAME): $(OBJ) $(LIBS) ./include/cub3d.h ./libs/Libft/include/libft.h ./libs/Get_Next_Line/include/get_next_line.h
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "Built $(NAME)"
 
@@ -90,4 +91,4 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY: all re clean fclean
+.PHONY: all re clean fclean libft minilibx

@@ -1,7 +1,7 @@
-NO ./textures/eloi-1.xpm
-SO ./textures/zpalfi-1.xpm
-WE ./textures/mono-1.xpm
-EA ./textures/aaron-1.xpm
+NO ./textures/eloi.xpm
+SO ./textures/zpalfi.xpm
+WE ./textures/mono.xpm
+EA ./textures/aaron.xpm
 
 F 100,100,100
 C 0,0,255

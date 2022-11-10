@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:20 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/09 13:29:05 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 14:19:27 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,30 +60,27 @@ int	get_textures(t_data *data)
 	return (0);
 }
 
-void	start(t_data *data)
+int	start(t_data *data)
 {
-	if (color_checker(data->c, -1, 0, 0) == 0
-		&& color_checker(data->f, -1, 0, 0) == 0)
-	{
-		map_checker(data, 0, 0);
-		data->mlx_ptr = mlx_init();
-		if (!data->mlx_ptr)
-			return ;
-		if (get_colors(data) != 0 || get_textures(data) != 0)
-			return ;
-		data->win_ptr = mlx_new_window(data->mlx_ptr,
-				WIDTH, HEIGHT, "Cub3D");
-		data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
-		data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-				&data->line_length, &data->endian);
-		if (!data->win_ptr)
-			return ;
-		mlx_hook(data->win_ptr, 2, 0, key_handler, data);
-		mlx_hook(data->win_ptr, 3, 0, key_release, data);
-		mlx_hook(data->win_ptr, 17, 0, key_exit, data);
-		mlx_loop_hook(data->mlx_ptr, rendering, data);
-		mlx_loop(data->mlx_ptr);
-	}
+	map_checker(data, 0, 0);
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
+		return (1);
+	if (get_colors(data) != 0 || get_textures(data) != 0)
+		return (1);
+	data->win_ptr = mlx_new_window(data->mlx_ptr,
+			WIDTH, HEIGHT, "Cub3D");
+	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+			&data->line_length, &data->endian);
+	if (!data->win_ptr)
+		return (1);
+	mlx_hook(data->win_ptr, 2, 0, key_handler, data);
+	mlx_hook(data->win_ptr, 3, 0, key_release, data);
+	mlx_hook(data->win_ptr, 17, 0, key_exit, data);
+	mlx_loop_hook(data->mlx_ptr, rendering, data);
+	mlx_loop(data->mlx_ptr);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -97,14 +94,18 @@ int	main(int argc, char **argv)
 	}
 	data = (t_data *)malloc(sizeof(t_data));
 	if (init_data(data, argv[1]))
-		return (1);
-	data->first = file_parser(data, -1, argv[1]);
-	if (data->first == 1)
-		start(data);
-	else
 	{
-		printf("There is no map in %s!\n", argv[1]);
+		free(data);
 		return (1);
 	}
-	return (0);
+	data->first = file_parser(data, -1, argv[1]);
+	if (check_textures(data) != 0 || color_checker(data->c, -1, 0, 0) != 0
+		|| color_checker(data->f, -1, 0, 0) != 0)
+		printf("Invalid textures or colors!\n");
+	else if (data->first == 1)
+		return (start(data));
+	else
+		printf("There is no map in %s!\n", argv[1]);
+	free_data(data, 0);
+	return (1);
 }

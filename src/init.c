@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:46:47 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/09 13:28:07 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 13:57:49 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init_data(t_data *data, char *filename)
 	if (data->fd < 0)
 	{
 		printf("File couldn't be opened!\n");
-		return (0);
+		return (1);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/09 15:41:26 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 14:15:55 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,11 @@ typedef struct s_data
 	t_textures	textures[4];	
 }	t_data;
 
+void	free_data(t_data *data, int i);
 void	move(t_data *data);
 void	tex_calc(t_data *data);
 void	malloc_map(t_data *data);
-void	free_map(t_data *data, int i);
+void	free_all(t_data *data, int i);
 void	save_map(t_data *data, char *line);
 void	save_texture(t_data *data, char *line);
 void	map_checker(t_data *data, int i, int j);
@@ -123,6 +124,7 @@ char	*del_spaces(char *line, int i);
 
 int		key_exit(t_data *data);
 int		rendering(t_data *data);
+int		check_textures(t_data *data);
 int		key_release(int key, t_data *data);
 int		key_handler(int key, t_data *data);
 int		init_data(t_data *data, char *filename);

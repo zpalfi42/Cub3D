@@ -6,14 +6,20 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:32:59 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/09 15:54:45 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 13:53:25 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_data(t_data *data)
+void	free_data(t_data *data, int i)
 {
+	while (data->map[i] != NULL && i < data->height + 2)
+	{
+		free(data->map[i]);
+		i++;
+	}
+	free(data->map);
 	free(data->no);
 	free(data->so);
 	free(data->we);
@@ -23,7 +29,7 @@ void	free_data(t_data *data)
 	free(data);
 }
 
-void	free_map(t_data *data, int i)
+void	free_all(t_data *data, int i)
 {
 	mlx_destroy_image(data->mlx_ptr, data->textures[0].img);
 	mlx_destroy_image(data->mlx_ptr, data->textures[1].img);
@@ -31,11 +37,5 @@ void	free_map(t_data *data, int i)
 	mlx_destroy_image(data->mlx_ptr, data->textures[3].img);
 	mlx_destroy_image(data->mlx_ptr, data->img);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	while (data->map[i] != NULL && i < data->height + 2)
-	{
-		free(data->map[i]);
-		i++;
-	}
-	free(data->map);
-	free_data(data);
+	free_data(data, i);
 }

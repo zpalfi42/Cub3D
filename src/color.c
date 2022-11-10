@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:43:38 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/03 13:32:45 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 14:19:41 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,4 @@ int	get_color(char *c, int color, int i, int j)
 	i = ft_atoi(cr);
 	free(cr);
 	return (i);
-}
-
-int	color_checker(char *c, int i, int j, int k)
-{
-	if (ft_strlen(c) > 12)
-	{
-		printf("Invalid color!\n");
-		return (1);
-	}
-	while (c[++i] != '\0' && c[i] != '\n')
-	{
-		if (c[i] == ',')
-		{
-			if (k > 2)
-			{
-				printf("Invalid color %d %d!\n", j, k);
-				return (1);
-			}
-			j = 0;
-			k++;
-		}
-		else if (ft_isdigit(c[i]) == 0 || j > 3 || k > 2)
-		{
-			printf("Invalid color %d %d!\n", j, k);
-			return (1);
-		}
-		j++;
-	}
-	return (0);
 }
