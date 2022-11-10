@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:32:59 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/10 13:53:25 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 17:17:37 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,27 @@
 
 void	free_data(t_data *data, int i)
 {
-	while (data->map[i] != NULL && i < data->height + 2)
+	if (data->map)
 	{
-		free(data->map[i]);
-		i++;
+		while (data->map[i] != NULL && i < data->height + 2)
+		{
+			free(data->map[i]);
+			i++;
+		}
+		free(data->map);
 	}
-	free(data->map);
-	free(data->no);
-	free(data->so);
-	free(data->we);
-	free(data->ea);
-	free(data->f);
-	free(data->c);
+	if (data->no)
+		free(data->no);
+	if (data->so)
+		free(data->so);
+	if (data->we)
+		free(data->we);
+	if (data->ea)
+		free(data->ea);
+	if (data->f)
+		free(data->f);
+	if (data->c)
+		free(data->c);
 	free(data);
 }
 

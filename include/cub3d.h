@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/10 14:15:55 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 17:36:42 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	malloc_map(t_data *data);
 void	free_all(t_data *data, int i);
 void	save_map(t_data *data, char *line);
 void	save_texture(t_data *data, char *line);
-void	map_checker(t_data *data, int i, int j);
+int		map_checker(t_data *data, int i, int j);
 void	get_height(t_data *data, char *filename, int i, int j);
 
 char	*del_spaces(char *line, int i);

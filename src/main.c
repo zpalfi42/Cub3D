@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:20 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/10 14:19:27 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 18:07:43 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	get_textures(t_data *data)
 			&data->textures[2].width, &data->textures[2].height);
 	data->textures[3].img = mlx_xpm_file_to_image(data->mlx_ptr, data->we,
 			&data->textures[3].width, &data->textures[3].height);
+	if (!data->textures[0].img || !data->textures[1].img || !data->textures[2].img || !data->textures[3].img)
+	{
+		printf("Invalid texture!\n");
+		return (1);
+	}
 	data->textures[0].addr = (unsigned int *)mlx_get_data_addr
 		(data->textures[0].img, &data->textures[0].bits_per_pixel,
 			&data->textures[0].line_length, &data->textures[0].endian);
@@ -62,24 +67,26 @@ int	get_textures(t_data *data)
 
 int	start(t_data *data)
 {
-	map_checker(data, 0, 0);
-	data->mlx_ptr = mlx_init();
-	if (!data->mlx_ptr)
-		return (1);
-	if (get_colors(data) != 0 || get_textures(data) != 0)
-		return (1);
-	data->win_ptr = mlx_new_window(data->mlx_ptr,
-			WIDTH, HEIGHT, "Cub3D");
-	data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
-	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
-			&data->line_length, &data->endian);
-	if (!data->win_ptr)
-		return (1);
-	mlx_hook(data->win_ptr, 2, 0, key_handler, data);
-	mlx_hook(data->win_ptr, 3, 0, key_release, data);
-	mlx_hook(data->win_ptr, 17, 0, key_exit, data);
-	mlx_loop_hook(data->mlx_ptr, rendering, data);
-	mlx_loop(data->mlx_ptr);
+	if (map_checker(data, 0, 0) != 1)
+	{
+		data->mlx_ptr = mlx_init();
+		if (!data->mlx_ptr)
+			return (1);
+		if (get_colors(data) != 0 || get_textures(data) != 0)
+			return (1);
+		data->win_ptr = mlx_new_window(data->mlx_ptr,
+				WIDTH, HEIGHT, "Cub3D");
+		data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
+		data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel,
+				&data->line_length, &data->endian);
+		if (!data->win_ptr)
+			return (1);
+		mlx_hook(data->win_ptr, 2, 0, key_handler, data);
+		mlx_hook(data->win_ptr, 3, 0, key_release, data);
+		mlx_hook(data->win_ptr, 17, 0, key_exit, data);
+		mlx_loop_hook(data->mlx_ptr, rendering, data);
+		mlx_loop(data->mlx_ptr);
+	}
 	return (0);
 }
 

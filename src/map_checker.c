@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:03:19 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/03 16:45:51 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 17:36:33 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,19 @@ static void	x_point(t_data *data, int i, int j)
 	}
 }
 
-void	map_checker(t_data *data, int i, int j)
+static	void	other_point(t_data *data, int i, int j)
+{
+	if (data->map[i][j] != 'X' && data->map[i][j] != '1'
+		&& data->map[i][j] != '0' && data->map[i][j] != 'N'
+			&& data->map[i][j] != 'W' && data->map[i][j] != 'S'
+			&& data->map[i][j] != 'E')
+	{
+		printf("Not a valid character!\n");
+		data->error = 1;
+	}
+}
+
+int	map_checker(t_data *data, int i, int j)
 {
 	while (data->map[i])
 	{
@@ -75,6 +87,7 @@ void	map_checker(t_data *data, int i, int j)
 		{
 			x_point(data, i, j);
 			player_point(data, i, j);
+			other_point(data, i, j);
 			j++;
 		}
 		i++;
@@ -85,4 +98,5 @@ void	map_checker(t_data *data, int i, int j)
 			data->player);
 		data->error = 1;
 	}
+	return (data->error);
 }

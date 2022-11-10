@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:38:58 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/09 11:50:13 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/10 18:00:58 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ void	save_map(t_data *data, char *line)
 
 void	save_texture(t_data *data, char *line)
 {
-	if (!ft_strncmp(line, "NO ", 3))
+	if (!ft_strncmp(line, "NO ", 3) && !data->no)
 		data->no = del_spaces(line, 2);
-	else if (!ft_strncmp(line, "SO ", 3))
+	else if (!ft_strncmp(line, "SO ", 3) && !data->so)
 		data->so = del_spaces(line, 2);
-	else if (!ft_strncmp(line, "EA ", 3))
+	else if (!ft_strncmp(line, "EA ", 3) && !data->ea)
 		data->ea = del_spaces(line, 2);
-	else if (!ft_strncmp(line, "WE ", 3))
+	else if (!ft_strncmp(line, "WE ", 3) && !data->we)
 		data->we = del_spaces(line, 2);
-	else if (!ft_strncmp(line, "F ", 2))
+	else if (!ft_strncmp(line, "F ", 2) && !data->f)
 		data->f = del_spaces(line, 1);
-	else if (!ft_strncmp(line, "C ", 2))
+	else if (!ft_strncmp(line, "C ", 2) && !data->c)
 		data->c = del_spaces(line, 1);
 }
