@@ -10,6 +10,13 @@
 
 #include "font.c"
 
+void	mlx_destroy(void *mlx_ptr)
+{
+	mlx_ptr_t	*ptr;
+	ptr = mlx_ptr;
+	mlx_destroy_image(ptr, ptr->font);
+	free(ptr);
+}
 
 void	do_loop_hook2(CFRunLoopTimerRef observer, void * info)
 {

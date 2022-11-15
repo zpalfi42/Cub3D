@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:20 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/15 13:54:13 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 16:19:09 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	start(t_data *data)
 		mlx_loop(data->mlx_ptr);
 	}
 	else
-		free_all(data, 0);
+		return (1);
 	return (0);
 }
 

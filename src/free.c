@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 11:32:59 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/15 14:07:52 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 16:08:28 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,18 @@ void	free_data(t_data *data, int i)
 
 void	free_all(t_data *data, int i)
 {
-	if (data->nos == 1)
+	if (data->textures[0].img != NULL)
 		mlx_destroy_image(data->mlx_ptr, data->textures[0].img);
-	if (data->sos == 1)
+	if (data->textures[1].img != NULL)
 		mlx_destroy_image(data->mlx_ptr, data->textures[1].img);
-	if (data->eas == 1)
+	if (data->textures[2].img != NULL)
 		mlx_destroy_image(data->mlx_ptr, data->textures[2].img);
-	if (data->wes == 1)
+	if (data->textures[3].img != NULL)
 		mlx_destroy_image(data->mlx_ptr, data->textures[3].img);
 	if (data->img != NULL)
 		mlx_destroy_image(data->mlx_ptr, data->img);
 	if (data->win_ptr != NULL)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	mlx_destroy(data->mlx_ptr);
 	free_data(data, i);
 }

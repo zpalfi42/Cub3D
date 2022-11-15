@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/15 13:42:14 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 16:05:57 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,6 @@ int		color_checker(char *c, int i, int j, int k);
 int		file_parser(t_data *data, int i, char *filename);
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	mlx_destroy(void *mlx_ptr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 14:03:19 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/15 13:45:40 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 15:12:17 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ static void	x_point(t_data *data, int i, int j)
 {
 	if (data->map[i][j] == 'X')
 	{
-		if (!valid_point(data, i, j + 1)
-			|| (data->map[i + 1] != NULL && !valid_point(data, i + 1, j))
-			|| (i > 0 && data->map[i - 1] != NULL
-				&& !valid_point(data, i - 1, j))
-			|| (j > 0 && !valid_point(data, i, j - 1)))
+		if ((!valid_point(data, i, j + 1)
+				|| (data->map[i + 1] != NULL && !valid_point(data, i + 1, j))
+				|| (i > 0 && data->map[i - 1] != NULL
+					&& !valid_point(data, i - 1, j))
+				|| (j > 0 && !valid_point(data, i, j - 1))) && data->error != 1)
 		{
 			printf("Map error\n");
 			data->error = 1;
@@ -71,7 +71,7 @@ static	void	other_point(t_data *data, int i, int j)
 	if (data->map[i][j] != 'X' && data->map[i][j] != '1'
 		&& data->map[i][j] != '0' && data->map[i][j] != 'N'
 			&& data->map[i][j] != 'W' && data->map[i][j] != 'S'
-			&& data->map[i][j] != 'E')
+			&& data->map[i][j] != 'E' && data->error != 1)
 	{
 		printf("Not a valid character!\n");
 		data->error = 1;
