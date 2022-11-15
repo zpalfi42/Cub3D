@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 14:15:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/10 17:58:21 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 13:45:20 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,31 @@
 
 int	color_checker(char *c, int i, int j, int k)
 {
-	if (c)
+	if (ft_strlen(c) > 12 || ft_strlen(c) < 1)
+		return (1);
+	while (c[++i] != '\0' && c[i] != '\n')
 	{
-		if (ft_strlen(c) > 12)
+		if (c[i] == ',')
 		{
-			return (1);
-		}
-		while (c[++i] != '\0' && c[i] != '\n')
-		{
-			if (c[i] == ',')
-			{
-				if (k > 2)
-				{
-					printf("Invalid color %d %d!\n", j, k);
-					return (1);
-				}
-				j = 0;
-				k++;
-			}
-			else if (ft_isdigit(c[i]) == 0 || j > 3 || k > 2)
+			if (k > 2)
 			{
 				printf("Invalid color %d %d!\n", j, k);
 				return (1);
 			}
-			j++;
+			j = 0;
+			k++;
 		}
-		return (0);
+		else if (ft_isdigit(c[i]) == 0 || j > 3 || k > 2)
+		{
+			printf("Invalid color %d %d!\n", j, k);
+			return (1);
+		}
+		j++;
 	}
-	return (1);
+	return (0);
 }
 
-int	check_textures(t_data *data)
+int	textures_checker(t_data *data)
 {
 	int	fd;
 

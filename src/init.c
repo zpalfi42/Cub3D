@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:46:47 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/10 13:57:49 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 13:04:34 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ void	init_data_2(t_data *data)
 	data->mb = 0;
 	data->ml = 0;
 	data->mr = 0;
+	data->nos = 0;
+	data->sos = 0;
+	data->eas = 0;
+	data->wes = 0;
+	data->fs = 0;
+	data->cs = 0;
 }
 
 int	init_data(t_data *data, char *filename)

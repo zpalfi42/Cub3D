@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:20 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/10 18:07:43 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 13:54:13 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,56 +24,13 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	get_colors(t_data *data)
-{
-	data->colorc = (get_color(data->c, 0, -1, 0) << 16
-			| get_color(data->c, 1, -1, 0) << 8
-			| get_color(data->c, 2, -1, 0));
-	data->colorf = (get_color(data->f, 0, -1, 0) << 16
-			| get_color(data->f, 1, -1, 0) << 8
-			| get_color(data->f, 2, -1, 0));
-	return (0);
-}
-
-int	get_textures(t_data *data)
-{
-	data->textures[0].img = mlx_xpm_file_to_image(data->mlx_ptr, data->no,
-			&data->textures[0].width, &data->textures[0].height);
-	data->textures[1].img = mlx_xpm_file_to_image(data->mlx_ptr, data->so,
-			&data->textures[1].width, &data->textures[1].height);
-	data->textures[2].img = mlx_xpm_file_to_image(data->mlx_ptr, data->ea,
-			&data->textures[2].width, &data->textures[2].height);
-	data->textures[3].img = mlx_xpm_file_to_image(data->mlx_ptr, data->we,
-			&data->textures[3].width, &data->textures[3].height);
-	if (!data->textures[0].img || !data->textures[1].img || !data->textures[2].img || !data->textures[3].img)
-	{
-		printf("Invalid texture!\n");
-		return (1);
-	}
-	data->textures[0].addr = (unsigned int *)mlx_get_data_addr
-		(data->textures[0].img, &data->textures[0].bits_per_pixel,
-			&data->textures[0].line_length, &data->textures[0].endian);
-	data->textures[1].addr = (unsigned int *)mlx_get_data_addr
-		(data->textures[1].img, &data->textures[1].bits_per_pixel,
-			&data->textures[1].line_length, &data->textures[1].endian);
-	data->textures[2].addr = (unsigned int *)mlx_get_data_addr
-		(data->textures[2].img, &data->textures[2].bits_per_pixel,
-			&data->textures[2].line_length, &data->textures[2].endian);
-	data->textures[3].addr = (unsigned int *)mlx_get_data_addr
-		(data->textures[3].img, &data->textures[3].bits_per_pixel,
-			&data->textures[3].line_length, &data->textures[3].endian);
-	return (0);
-}
-
 int	start(t_data *data)
 {
-	if (map_checker(data, 0, 0) != 1)
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
+		return (1);
+	if (get_colors(data) == 0 && get_textures(data) == 0)
 	{
-		data->mlx_ptr = mlx_init();
-		if (!data->mlx_ptr)
-			return (1);
-		if (get_colors(data) != 0 || get_textures(data) != 0)
-			return (1);
 		data->win_ptr = mlx_new_window(data->mlx_ptr,
 				WIDTH, HEIGHT, "Cub3D");
 		data->img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
@@ -87,6 +44,8 @@ int	start(t_data *data)
 		mlx_loop_hook(data->mlx_ptr, rendering, data);
 		mlx_loop(data->mlx_ptr);
 	}
+	else
+		free_all(data, 0);
 	return (0);
 }
 
@@ -106,12 +65,12 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	data->first = file_parser(data, -1, argv[1]);
-	if (check_textures(data) != 0 || color_checker(data->c, -1, 0, 0) != 0
+	if (textures_checker(data) != 0 || color_checker(data->c, -1, 0, 0) != 0
 		|| color_checker(data->f, -1, 0, 0) != 0)
 		printf("Invalid textures or colors!\n");
-	else if (data->first == 1)
+	else if (data->first == 1 && map_checker(data, 0, 0) != 1)
 		return (start(data));
-	else
+	else if (data->error != 1)
 		printf("There is no map in %s!\n", argv[1]);
 	free_data(data, 0);
 	return (1);

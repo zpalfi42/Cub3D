@@ -6,7 +6,7 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 14:50:17 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/10 17:36:42 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 13:42:14 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,13 @@ typedef struct s_data
 	char		*f;
 	char		*c;
 
+	int			nos;
+	int			sos;
+	int			eas;
+	int			wes;
+	int			fs;
+	int			cs;
+
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;
@@ -124,11 +131,12 @@ char	*del_spaces(char *line, int i);
 
 int		key_exit(t_data *data);
 int		rendering(t_data *data);
-int		check_textures(t_data *data);
+int		get_colors(t_data *data);
+int		get_textures(t_data *data);
+int		textures_checker(t_data *data);
 int		key_release(int key, t_data *data);
 int		key_handler(int key, t_data *data);
 int		init_data(t_data *data, char *filename);
-int		get_color(char *c, int color, int i, int j);
 int		color_checker(char *c, int i, int j, int k);
 int		file_parser(t_data *data, int i, char *filename);
 

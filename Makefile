@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/14 12:16:53 by zpalfi            #+#    #+#              #
-#    Updated: 2022/11/10 14:39:50 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/11/15 13:42:23 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ LIBS			= $(LIBS_DIR)/Libft/libft.a \
 				  $(LIBS_DIR)/Get_Next_Line/get_next_line.a \
 				  mlx/libmlx.a
 
+HEADERS			= ./libs/Libft/include/libft.h \
+				  ./libs/Get_Next_Line/include/get_next_line.h \
+				  ./include/cub3d.h
 
 LIBS_HEADERS	= -I $(LIBS_DIR)/Libft/include/ \
 				  -I $(LIBS_DIR)/Get_Next_Line/include/ \
@@ -36,13 +39,13 @@ SRC				=	main.c \
 					save.c \
 					init.c \
 					move.c \
-					color.c \
 					parsers.c \
 					checkers.c \
 					textures.c \
 					handlers.c \
 					rendering.c \
 					del_spaces.c \
+					get_things.c \
 					map_checker.c \
 					height_malloc.c
 
@@ -60,18 +63,19 @@ CFLAGS		= -Wall -Wextra -Werror -g $(INC) -Imlx
 
 #--------------- RULES ---------------#
 
-objs/%.o: src/%.c ./include/cub3d.h ./libs/Libft/include/libft.h ./libs/Get_Next_Line/include/get_next_line.h
+objs/%.o: src/%.c $(LIBS) $(HEADERS)
 	@mkdir -p $(dir $@)
 	@$(CC) -c $(CFLAGS) -o $@ $<
-	@echo "Compiling $^"
+	
+#@echo "Compiling $^"
 
-all:	$(NAME) $(LIBS_DIR)/Libft/libft.a $(LIBS_DIR)/Get_Next_Line/get_next_line.a
+all:	$(NAME)
 
-$(NAME): $(OBJ) $(LIBS) ./include/cub3d.h ./libs/Libft/include/libft.h ./libs/Get_Next_Line/include/get_next_line.h
+$(NAME): $(OBJ) $(LIBS)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBS) -framework OpenGL -framework AppKit -o $(NAME)
 	@echo "Built $(NAME)"
 
-$(LIBS_DIR)/Libft/libft.a: ./libs/Libft/include/libft.h
+$(LIBS_DIR)/Libft/libft.a:	./libs/Libft/include/libft.h
 	@make -C $(LIBS_DIR)/Libft
 
 $(LIBS_DIR)/Get_Next_Line/get_next_line.a: ./libs/Get_Next_Line/include/get_next_line.h

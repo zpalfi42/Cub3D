@@ -6,13 +6,13 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:58:48 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/09 13:38:09 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 13:46:22 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	move_sides(t_data *data, double rad)
+static void	move_rl(t_data *data, double rad)
 {
 	if (data->map[(int)(data->posx + (data->dirx * cos(rad) - data->diry
 				* sin(rad)) * 0.04)][(int)(data->posy)] != 'X'
@@ -30,7 +30,7 @@ void	move_sides(t_data *data, double rad)
 				* cos(rad)) * 0.04;
 }
 
-void	move_fb(t_data *data, double numx, double numy)
+static void	move_fb(t_data *data, double numx, double numy)
 {
 	if (data->map[(int)(data->posx + numx)][(int)(data->posy)] != 'X'
 			&& data->map[(int)(data->posx + numx)][(int)(data->posy)] != '1')
@@ -40,7 +40,7 @@ void	move_fb(t_data *data, double numx, double numy)
 		data->posy += numy;
 }
 
-void	move_vision(t_data *data, double rad)
+static void	move_vision(t_data *data, double rad)
 {
 	double	olddirx;
 	double	oldplanex;
@@ -64,7 +64,7 @@ void	move(t_data *data)
 	if (data->mb == 1)
 		move_fb(data, -data->dirx * data->speed, -data->diry * data->speed);
 	if (data->ml == 1)
-		move_sides(data, 1.5708);
+		move_rl(data, 1.5708);
 	if (data->mr == 1)
-		move_sides(data, 4.71239);
+		move_rl(data, 4.71239);
 }

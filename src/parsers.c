@@ -6,20 +6,20 @@
 /*   By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 12:20:09 by zpalfi            #+#    #+#             */
-/*   Updated: 2022/11/10 17:57:13 by zpalfi           ###   ########.fr       */
+/*   Updated: 2022/11/15 13:46:35 by zpalfi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	all_textures(t_data *data)
+static int	all_textures(t_data *data)
 {
 	if (data->no && data->so && data->ea && data->we && data->c && data->f)
 		return (0);
 	return (1);
 }
 
-int	map_parser(t_data *data, char *line, int i, char *filename)
+static int	map_parser(t_data *data, char *line, int i, char *filename)
 {
 	if (data->first == 0)
 	{
