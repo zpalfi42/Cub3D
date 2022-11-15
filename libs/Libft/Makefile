@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/17 14:18:26 by zpalfi            #+#    #+#              #
-#    Updated: 2022/11/10 14:32:11 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/11/15 16:47:04 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ $(NAME): $(OBJ) include/libft.h
 
 .PHONY : clean
 clean:
-	@rm -f *.o
+	@rm -f src/*.o
 
 .PHONY : fclean
 fclean: clean

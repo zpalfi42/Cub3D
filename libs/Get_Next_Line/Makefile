@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/14 13:15:04 by zpalfi            #+#    #+#              #
-#    Updated: 2022/10/24 13:54:09 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/11/15 16:47:12 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ $(NAME): $(OBJ) include/get_next_line.h
 
 .PHONY : clean
 clean:
-	@rm -f *.o
+	@rm -f src/*.o
 
 .PHONY : fclean
 fclean: clean

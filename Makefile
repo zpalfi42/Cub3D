@@ -6,7 +6,7 @@
 #    By: zpalfi <zpalfi@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/14 12:16:53 by zpalfi            #+#    #+#              #
-#    Updated: 2022/11/15 13:42:23 by zpalfi           ###   ########.fr        #
+#    Updated: 2022/11/15 16:46:46 by zpalfi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,8 @@ mlx/libmlx.a:
 
 clean:
 	@rm -rf $(OBJS_DIR)
+	@make clean -C $(LIBS_DIR)/Libft
+	@make clean -C $(LIBS_DIR)/Get_Next_Line
 
 fclean:	clean
 	@make fclean -C $(LIBS_DIR)/Libft
